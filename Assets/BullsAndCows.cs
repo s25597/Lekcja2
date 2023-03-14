@@ -11,11 +11,16 @@ public class BullsAndCows : MonoBehaviour
     public TextMeshProUGUI msgText;
     public TMP_InputField inputField;
 
+    public List<string> words= new List<string>();
+
     int lives = 3;
     string secretword = "Hello";
     // Start is called before the first frame update
     void Start()
     {
+
+        secretword = words[Random.Range(0,words.Count-1)];
+
         secretwordText.text = "Try and guess ";
         secretwordLength.text = "Secret word length " + secretword.Length + ".";
         msgText.text= "Player has " + lives + " lives.";
@@ -41,6 +46,11 @@ public class BullsAndCows : MonoBehaviour
     {
         if (lives > 0)
         {
+            if (secretword == inputField.text)
+            {
+                secretwordText.text = "Congratulations";
+                return;
+            }
             if (secretword.Length == inputField.text.Length)
             {
                 int bullsCount = 0;
